@@ -44,6 +44,3 @@ add_custom_command(
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:Arkanoid>/resources
 )
-
-# Uwzględnij podprojekty.
-# add_subdirectory ("Arkanoid")
