@@ -18,7 +18,7 @@ public:
 	sf::Vector2f getVelo();
 
 	bool checkCollision(const Paddle& paddle); 
-	bool checkCollision(const Brick& brick);//maybe i can make it work for both
+	bool checkCollision(const Brick& brick);
 	bool checkFall();
 	void update();
 	void move();

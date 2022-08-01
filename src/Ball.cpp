@@ -11,6 +11,7 @@ void Ball::initShape()
 
 void Ball::setAngle(float angle)
 {
+	//takes angle between 0-180 degrees, undebatable
 	velocity.x = speed * std::cos(angle * std::numbers::pi / 180);
 	velocity.y = -speed * std::sin(angle * std::numbers::pi / 180);
 }
@@ -50,11 +51,10 @@ bool Ball::checkCollision(const Paddle& paddle)
 
 	if (paddlePos.contains(pos)) {
 
-		float deviation = 50.f; //why
-		bool leftSide = pos.x < paddlePos.left;
-		float distanceFromCenter = std::abs(pos.x - paddlePos.left);
-		float percantage = distanceFromCenter / 25.f;
-		float angle = 180.f - percantage * deviation * (leftSide ? -1.f : 1.f);
+		float distanceFromCenter = pos.x - paddlePos.left;
+		//std::cout << distanceFromCenter << std::endl;
+		float angle = 180-distanceFromCenter*1.8; //0-180 tak jakby na odwrot
+		
 		//std::cout << angle << std::endl;
 
 		setAngle(angle);
@@ -69,7 +69,7 @@ bool Ball::checkCollision(const Paddle& paddle)
 
 bool Ball::checkCollision(const Brick& brick)
 {
-
+	//problem when hitting block from the left side
 	sf::FloatRect ballPos = this->shape.getGlobalBounds();
 
 	sf::Vector2f ballVec = shape.getPosition();

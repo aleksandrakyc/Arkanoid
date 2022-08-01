@@ -11,7 +11,7 @@ class Score
 	float score = 0;
 	float combo = 1.f;
 
-	//delete this
+	//regex unnecesarry - username is enough
 	std::regex regex_mail = std::regex("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 	std::string email = "nie podano odpowiedniego adresu";
 
