@@ -2,7 +2,6 @@
 #include <list>
 #include <memory>
 #include <filesystem>
-#include <ranges>
 #include <vector>
 
 class Scoreboard
@@ -16,10 +15,10 @@ class Scoreboard
 	void drawScoreboard();
 
 	bool loadScores();
-	void sortScores();
 
 public:
 	Scoreboard();
+	~Scoreboard();
 
 	void update();
 	void render();

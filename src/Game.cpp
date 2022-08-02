@@ -51,8 +51,9 @@ void Game::updateWall()
 	while (it != this->brickWall.end()) {
 
 		if (this->ball->checkCollision(**it)) {
-			this->ball->move();
+						
 			it = this->brickWall.erase(it);
+			this->ball->move();
 			this->score->increment();
 		}
 		else {
@@ -105,7 +106,7 @@ Game::~Game()
 		this->score->saveToFile();
 	}
 
-	delete this->window;
+	//delete this->window;
 	delete this->paddle;
 	delete this->ball;
 	delete this->score;
@@ -168,29 +169,23 @@ void Game::render()
 
 void Game::displayScore()
 {
-	sf::Text score, scoreDesc;
-
-	//make a class for myText
-
-	score.setFont(this->font);
-	score.setString(this->score->getScore());
-	score.setCharacterSize(60);
+	sf::Text score = sf::Text(this->score->getScore(), this->font, 60);
+	
 	score.setPosition(GlobalVars::width / 2 - 100, GlobalVars::height / 2);
 	
-	scoreDesc.setFont(this->font);
-	scoreDesc.setString("Your score:");
-	scoreDesc.setCharacterSize(60);
+
+	sf::Text scoreDesc = sf::Text("Your score:", this->font, 60);
+
 	scoreDesc.setPosition(100, GlobalVars::height / 2 - 100);
 
-	sf::Text playerInput, piDesc;
 
-	playerInput.setFont(this->font); 
-	playerInput.setCharacterSize(24);
+	sf::Text playerInput = sf::Text("", this->font, 24);
+
 	playerInput.setPosition(GlobalVars::width / 2 - 100, GlobalVars::height - 200);
 
-	piDesc.setFont(this->font);
-	piDesc.setCharacterSize(24);
-	piDesc.setString("Type your email and quit to save your score!");
+
+	sf::Text piDesc = sf::Text("Type your email and quit to save your score!", this->font, 24);
+
 	piDesc.setPosition(100, GlobalVars::height - 300);
 
 

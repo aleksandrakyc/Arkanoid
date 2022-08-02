@@ -9,9 +9,8 @@
 class Score
 {
 	float score = 0;
-	float combo = 1.f;
+	float combo = 1.05f;
 
-	//regex unnecesarry - username is enough
 	std::regex regex_mail = std::regex("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 	std::string email = "nie podano odpowiedniego adresu";
 
@@ -26,7 +25,6 @@ public:
 
 	std::string getScore();
 	int getScoreInt();
-	void test();
 	
 	void comboReset();
 	void increment();

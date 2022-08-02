@@ -20,7 +20,7 @@ void Paddle::update()
 {
 	sf::FloatRect paddle = this->getPos();
 		
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&(paddle.left>0))//check if not out of bounds
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&(paddle.left>0))
 		this->shape.move(-speed, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&(paddle.left + paddle.width) < GlobalVars::width)
 		this->shape.move(speed, 0.f);

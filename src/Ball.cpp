@@ -5,13 +5,11 @@
 void Ball::initShape()
 {
 	this->shape.setFillColor(sf::Color::White);
-	this->shape.setRadius(10.f);
-
+	this->shape.setRadius(5.f);
 }
 
 void Ball::setAngle(float angle)
 {
-	//takes angle between 0-180 degrees, undebatable
 	velocity.x = speed * std::cos(angle * std::numbers::pi / 180);
 	velocity.y = -speed * std::sin(angle * std::numbers::pi / 180);
 }
@@ -26,8 +24,9 @@ Ball::Ball()
 {
 	initShape();
 
-	this->shape.setPosition(590, 680);
-	this->speed = 5;
+	//dziwne zachowanie - 595 690
+	this->shape.setPosition(595, 690);
+	this->speed = 3;
 	this->velocity.x = 0;
 	this->velocity.y = 0;
 }
@@ -39,24 +38,15 @@ sf::Vector2f Ball::getVelo()
 
 bool Ball::checkCollision(const Paddle& paddle)
 {
-	//this needs to be revised
-
-	sf::Vector2f pos = shape.getPosition();
-	//offset to get the lowest point
-	
-	pos.y += 20;
-	int radius = shape.getRadius();
-
+	sf::FloatRect ballPos = this->shape.getGlobalBounds();
 	sf::FloatRect paddlePos = paddle.getPos();
 
-	if (paddlePos.contains(pos)) {
+	if (paddlePos.intersects(ballPos)) {
 
-		float distanceFromCenter = pos.x - paddlePos.left;
-		//std::cout << distanceFromCenter << std::endl;
-		float angle = 180-distanceFromCenter*1.8; //0-180 tak jakby na odwrot
+		float distanceFromCenter = ballPos.left - paddlePos.left;
+
+		float angle = 180-distanceFromCenter*1.8; 
 		
-		//std::cout << angle << std::endl;
-
 		setAngle(angle);
 
 		return true;
@@ -69,36 +59,59 @@ bool Ball::checkCollision(const Paddle& paddle)
 
 bool Ball::checkCollision(const Brick& brick)
 {
-	//problem when hitting block from the left side
-	sf::FloatRect ballPos = this->shape.getGlobalBounds();
+	//WIP!!!
+	auto ballRect = this->shape.getGlobalBounds();
+	auto brickRect = brick.getPos();
 
-	sf::Vector2f ballVec = shape.getPosition();
-	int radius = shape.getRadius();
-
-	sf::FloatRect brickPos = brick.getPos();
-
-	if (brickPos.left<=ballVec.x&& ballVec.x<=(brickPos.left+brickPos.width)) {
-
-		if (brickPos.top <= ballVec.y && ballVec.y <= (brickPos.top + brickPos.height)) {
-
-			velocity.y = -velocity.y;
-
-			return true;
-			
+	
+	if (ballRect.intersects(brickRect))
+	{
+		
+		if (ballRect.left < brickRect.left || ballRect.left+ballRect.width> brickRect.left + brickRect.width) //dziala tylko ta strona po ktorej sprawdza, teraz dziala dobrze bok tylko trzeba dol obsluzyc
+		{
+			//na sile fest
+			if (velocity.x != 0) {
+				velocity.x *= -1;
+			}
+			else {
+				velocity.y *= -1;
+			}
 		}
+		else if (ballRect.top < brickRect.top || ballRect.top + ballRect.height> brickRect.top + brickRect.height){
 
-	}
-	if (brickPos.top <= ballVec.y && ballVec.y <= (brickPos.top + brickPos.height)) {
+			velocity.y *= -1;
 
-		if (brickPos.left <= ballVec.x && ballVec.x <= (brickPos.left + brickPos.width)) {
-
-			velocity.x = -velocity.x;
-			//clumsy
-
-			return true;
 		}
-
+		else { //unnecessary?
+			velocity.x *= -1;
+			velocity.y *= -1;
+		}
+		return true;
+		
 	}
+
+	
+	//we already know they intersect - now we have to check whether the top/bottom or left/right coords are met
+	//it just goes into the first if always
+
+	//if (brickRect.left <= ballRect.left && ballRect.left<= (brickRect.left + brickRect.width)
+	//	|| brickRect.left <= ballRect.left+ballRect.width && ballRect.left + ballRect.width <= (brickRect.left + brickRect.width)) {
+	//	if (ballRect.intersects(brickRect)) {
+	//		velocity.y = -velocity.y;
+
+	//		return true;
+	//	}
+	//}
+	//if (brickRect.top <= ballRect.top && ballRect.top <= (brickRect.top + brickRect.height)
+	//	|| brickRect.top <= ballRect.top + ballRect.height && ballRect.top + ballRect.height <= (brickRect.top + brickRect.height)) {
+	//	if (ballRect.intersects(brickRect)) {
+	//		velocity.x = -velocity.x;
+	//		//clumsy
+
+	//		return true;
+	//	}
+
+	//}
 
 	return false;
 }
@@ -136,7 +149,8 @@ bool Ball::clickStart(sf::Event e)
 	if (velocity.x == 0 && velocity.y == 0) {
 
 		if (e.type == sf::Event::MouseButtonPressed) {
-			this->velocity.y = -5;
+
+			this->velocity.y = this->speed;
 			return true;
 		}
 

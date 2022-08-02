@@ -4,7 +4,7 @@ class Paddle
 	:public Block
 {
 
-	float speed = 10;
+	float speed = 5;
 	void initShape();
 
 public:

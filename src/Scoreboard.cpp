@@ -42,16 +42,16 @@ bool Scoreboard::loadScores()
 	return false;
 }
 
-void Scoreboard::sortScores()
-{
-	std::ranges::sort(this->scores);
-
-}
 
 Scoreboard::Scoreboard()
 {
 	initWindow();
 	loadScores();
+}
+
+Scoreboard::~Scoreboard()
+{
+	//delete window;
 }
 
 void Scoreboard::update()
@@ -72,15 +72,12 @@ void Scoreboard::render()
 
 	this->buttonQuit.render(this->window);
 
-	sf::Text buttonQuit;
+	sf::Text textQuit = sf::Text("Quit", this->font, 60);
 
-	buttonQuit.setFont(this->font);
-	buttonQuit.setString("Quit");
-	buttonQuit.setCharacterSize(60);
-	buttonQuit.setPosition(500, 600);
+	textQuit.setPosition(500, 600);
 
-	this->window->draw(buttonQuit);
-	//
+	this->window->draw(textQuit);
+	
 	this->window->display();
 }
 

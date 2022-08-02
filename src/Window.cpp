@@ -11,7 +11,7 @@ void Window::initWindow()
 	this->videoMode.width = GlobalVars::width;
 
 	this->window = new sf::RenderWindow(this->videoMode, "title", sf::Style::Titlebar | sf::Style::Close);
-	this->window->setFramerateLimit(60);
+	this->window->setFramerateLimit(120);
 }
 
 void Window::initFont()
@@ -19,7 +19,6 @@ void Window::initFont()
 
 	if (!font.loadFromFile("resources/ARCADECLASSIC.ttf"))
 	{
-		
 		std::cout << "nie da sie za³adowaæ czcionki" << std::endl;
 	}
 
@@ -33,7 +32,7 @@ Window::Window()
 
 Window::~Window()
 {
-
+	delete this->window;
 }
 
 const bool Window::getWindowIsOpen()

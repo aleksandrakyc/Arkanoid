@@ -39,7 +39,6 @@ void Score::increment()
 	this->score += 100;
 	this->score *= this->combo;
 	std::cout << score << std::endl;
-	this->combo += 0.2;
 }
 
 std::string Score::getScore()
@@ -57,12 +56,6 @@ int Score::getScoreInt()
 {
 	return score;
 }
-
-void Score::test()
-{
-	std::cout << this->email;
-}
-
 
 void Score::comboReset()
 {

@@ -25,7 +25,6 @@ Menu::Menu()
 
 Menu::~Menu()
 {
-	delete this->window;
 	delete this->game;
 	delete this->scoreboard;
 }
@@ -61,30 +60,23 @@ void Menu::update()
 void Menu::render()
 {
 	this->window->clear();
-	//stuffs
+	
 	this->buttonGame.render(this->window);
 	this->buttonQuit.render(this->window);
 	this->buttonScore.render(this->window);
 
-	sf::Text buttonGame, buttonQuit, buttonScore;
-	buttonGame.setFont(this->font); 
-	buttonGame.setString("Play");
-	buttonGame.setCharacterSize(60);
-	buttonGame.setPosition(500,100);
+	sf::Text textGame = sf::Text("Play", this->font, 60);
+	textGame.setPosition(500,100);
 
-	buttonQuit.setFont(this->font); 
-	buttonQuit.setString("Quit");
-	buttonQuit.setCharacterSize(60);
-	buttonQuit.setPosition(500, 600);
+	sf::Text textQuit = sf::Text("Quit", this->font, 60);
+	textQuit.setPosition(500, 600);
 
-	buttonScore.setFont(this->font);
-	buttonScore.setString("Scores");
-	buttonScore.setCharacterSize(60);
-	buttonScore.setPosition(500, 350);
+	sf::Text textScore = sf::Text("Score", this->font, 60);
+	textScore.setPosition(500, 350);
 
-	this->window->draw(buttonGame);
-	this->window->draw(buttonQuit);
-	this->window->draw(buttonScore);
+	this->window->draw(textGame);
+	this->window->draw(textQuit);
+	this->window->draw(textScore);
 	//
 	this->window->display();
 }

@@ -5,7 +5,7 @@ class Menu
 {
 	Button buttonGame = Button(450, 100);
 	Button buttonScore = Button(450, 350);
-	Button buttonQuit = Button(450, 600); //optional - might want to display highscores automatically on the side
+	Button buttonQuit = Button(450, 600);
 	
 	Game* game;
 	Scoreboard* scoreboard;
