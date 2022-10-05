@@ -2,7 +2,7 @@
 Simple brickbreaker game written in C++ and SFML 2.5.1
 
 ### How to build
-To build run cmake in the main directory.
+To build run cmake in the main directory. The SFML library must be installed.
 ```
 mkdir build
 cd build
